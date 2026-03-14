@@ -1,0 +1,4 @@
+com.ricedisease.classifier.test.app-androidTest-0 /Users/ayushkushwaha/Desktop/kyf/Rice_Disease_classification/android_app/RiceDiseaseClassifier/app/build/generated/res/resValues/androidTest/debug
+com.ricedisease.classifier.test.app-mergeDebugAndroidTestResources-1 /Users/ayushkushwaha/Desktop/kyf/Rice_Disease_classification/android_app/RiceDiseaseClassifier/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
+com.ricedisease.classifier.test.app-mergeDebugAndroidTestResources-2 /Users/ayushkushwaha/Desktop/kyf/Rice_Disease_classification/android_app/RiceDiseaseClassifier/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
+com.ricedisease.classifier.test.app-merged_res-3 /Users/ayushkushwaha/Desktop/kyf/Rice_Disease_classification/android_app/RiceDiseaseClassifier/app/build/intermediates/merged_res/debugAndroidTest

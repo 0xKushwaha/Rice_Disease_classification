@@ -92,7 +92,7 @@ To install:
 ### Build from Source
 
 ```bash
-cd app_rice_disease_classification/RiceDiseaseClassifier
+cd RiceDiseaseClassifier
 
 # Build debug APK
 ./gradlew assembleDebug
@@ -100,7 +100,7 @@ cd app_rice_disease_classification/RiceDiseaseClassifier
 # APK location: app/build/outputs/apk/debug/app-debug.apk
 ```
 
-Or open `app_rice_disease_classification/RiceDiseaseClassifier` in Android Studio and click Run.
+Or open `RiceDiseaseClassifier` in Android Studio and click Run.
 
 ### Re-export Model for Android
 
@@ -125,14 +125,13 @@ Rice_Disease_classification/
 ├── app.apk                        # Pre-built Android app
 ├── test.jpeg                      # App demo screenshot
 │
-├── app_rice_disease_classification/  # Android app source code
+├── RiceDiseaseClassifier/            # Android app source code
 │   ├── README.md                  # App documentation
-│   └── RiceDiseaseClassifier/     # Android Studio project
-│       ├── app/src/main/
-│       │   ├── assets/mamba_lite.onnx
-│       │   ├── java/.../MainActivity.kt
-│       │   └── java/.../RiceClassifier.kt
-│       └── build.gradle.kts
+│   ├── app/src/main/
+│   │   ├── assets/mamba_lite.onnx
+│   │   ├── java/.../MainActivity.kt
+│   │   └── java/.../RiceClassifier.kt
+│   └── build.gradle.kts
 │
 ├── train-mamba.ipynb              # MambaCNN training notebook
 ├── mamba-lite.ipynb               # MambaCNN lite variant training

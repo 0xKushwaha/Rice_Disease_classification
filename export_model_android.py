@@ -96,7 +96,7 @@ def main():
 
     # Export to ONNX with opset 12 (compatible with IR version 7)
     dummy_input = torch.randn(1, 3, 128, 128)
-    output_path = "android_app/RiceDiseaseClassifier/app/src/main/assets/mamba_lite.onnx"
+    output_path = "RiceDiseaseClassifier/app/src/main/assets/mamba_lite.onnx"
 
     print(f"Exporting to ONNX with opset 14...")
 
