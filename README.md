@@ -80,18 +80,29 @@ Rice_Disease_classification/
 │   └── outputs/
 │       ├── mamba_cnn_summary.json
 │       ├── mamba_cnn_seed_results.csv
-│       └── runs/seed_*/           # Per-seed checkpoints
+│       ├── all_seed_results.json
+│       ├── mamba_cnn_best_confusion_matrix.png
+│       └── runs/seed_*/           # Per-seed checkpoints (.pth, .onnx)
 │
-├── train_mamba_lite_results/      # MambaCNN Lite outputs
+├── train_mamba_lite_results/      # MambaCNN Lite outputs (same structure)
 │   └── outputs/
-│       └── runs/seed_*/           # Per-seed checkpoints
+│       ├── mamba_cnn_summary.json
+│       ├── mamba_cnn_seed_results.csv
+│       ├── all_seed_results.json
+│       ├── mamba_cnn_best_confusion_matrix.png
+│       └── runs/seed_*/           # Per-seed checkpoints (.pth, .onnx)
 │
 └── train_yolo_results/            # YOLO training outputs
+    ├── yolo11n-cls.pt             # Pretrained YOLO model
+    ├── data/splits/               # Train/val/test image splits
     ├── outputs/
-    │   ├── best_model/            # Best YOLO weights
+    │   ├── best_model/            # Best YOLO weights (.pt, .onnx)
     │   ├── multi_seed_summary.json
-    │   └── seed_results.csv
-    └── data/splits/               # Train/val/test splits
+    │   ├── seed_results.csv
+    │   └── all_seed_results.json
+    └── runs/classify/
+        ├── outputs/runs/seed_*/   # Per-seed training outputs
+        └── val*/                  # Validation results & confusion matrices
 ```
 
 ## Installation
