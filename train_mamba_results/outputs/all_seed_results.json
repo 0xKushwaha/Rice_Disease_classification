@@ -1,0 +1,92 @@
+[
+  {
+    "seed": 1,
+    "test_acc": 97.39583333333334,
+    "test_loss": 0.33917275071144104,
+    "best_val_loss": 0.3117371836569921,
+    "best_ckpt": "outputs/runs/seed_1/best_mamba_cnn_seed1.pth",
+    "class_names": [
+      "Bacterial Leaf Blight",
+      "Brown Spot",
+      "Healthy Rice Leaf",
+      "Leaf Blast",
+      "Leaf scald",
+      "Sheath Blight"
+    ]
+  },
+  {
+    "seed": 42,
+    "test_acc": 97.91666666666666,
+    "test_loss": 0.3399381736914317,
+    "best_val_loss": 0.32440003955551466,
+    "best_ckpt": "outputs/runs/seed_42/best_mamba_cnn_seed42.pth",
+    "class_names": [
+      "Bacterial Leaf Blight",
+      "Brown Spot",
+      "Healthy Rice Leaf",
+      "Leaf Blast",
+      "Leaf scald",
+      "Sheath Blight"
+    ]
+  },
+  {
+    "seed": 123,
+    "test_acc": 98.4375,
+    "test_loss": 0.32275109986464184,
+    "best_val_loss": 0.300589072142596,
+    "best_ckpt": "outputs/runs/seed_123/best_mamba_cnn_seed123.pth",
+    "class_names": [
+      "Bacterial Leaf Blight",
+      "Brown Spot",
+      "Healthy Rice Leaf",
+      "Leaf Blast",
+      "Leaf scald",
+      "Sheath Blight"
+    ]
+  },
+  {
+    "seed": 456,
+    "test_acc": 97.91666666666666,
+    "test_loss": 0.3365027606487274,
+    "best_val_loss": 0.3120797989568161,
+    "best_ckpt": "outputs/runs/seed_456/best_mamba_cnn_seed456.pth",
+    "class_names": [
+      "Bacterial Leaf Blight",
+      "Brown Spot",
+      "Healthy Rice Leaf",
+      "Leaf Blast",
+      "Leaf scald",
+      "Sheath Blight"
+    ]
+  },
+  {
+    "seed": 789,
+    "test_acc": 97.91666666666666,
+    "test_loss": 0.32361095647017163,
+    "best_val_loss": 0.30481871260398347,
+    "best_ckpt": "outputs/runs/seed_789/best_mamba_cnn_seed789.pth",
+    "class_names": [
+      "Bacterial Leaf Blight",
+      "Brown Spot",
+      "Healthy Rice Leaf",
+      "Leaf Blast",
+      "Leaf scald",
+      "Sheath Blight"
+    ]
+  },
+  {
+    "seed": 1024,
+    "test_acc": 97.91666666666666,
+    "test_loss": 0.325923224290212,
+    "best_val_loss": 0.31738183292418876,
+    "best_ckpt": "outputs/runs/seed_1024/best_mamba_cnn_seed1024.pth",
+    "class_names": [
+      "Bacterial Leaf Blight",
+      "Brown Spot",
+      "Healthy Rice Leaf",
+      "Leaf Blast",
+      "Leaf scald",
+      "Sheath Blight"
+    ]
+  }
+]

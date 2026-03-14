@@ -1,0 +1,17 @@
+{
+  "model": "mamba_cnn",
+  "seeds_tested": [
+    1,
+    42,
+    123,
+    456,
+    789,
+    1024
+  ],
+  "best_seed": 123,
+  "best_test_acc": 98.4375,
+  "mean_test_acc": 97.91666666666667,
+  "std_test_acc": 0.3294039229342032,
+  "best_ckpt": "outputs/runs/seed_123/best_mamba_cnn_seed123.pth",
+  "onnx_path": "outputs/runs/seed_123/best_mamba_cnn_seed123.onnx"
+}
