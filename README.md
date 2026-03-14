@@ -338,7 +338,7 @@ Training was performed on Kaggle with T4 GPU. To reproduce:
 
 2. **Consistency**: MambaCNN shows lower variance across seeds (±0.33%) compared to YOLO (±0.64%), indicating more stable training.
 
-3. **Edge-Ready**: The MambaCNN model at 649 KB easily meets the <1MB constraint while achieving state-of-the-art accuracy on this dataset.
+3. **Edge-Ready**: The MambaCNN model easily meets the <1MB constraint while achieving significant accuracy.
 
 4. **Inference Efficiency**: Smaller input size (128×128 vs 320×320) and fewer parameters result in faster inference on CPU.
 
