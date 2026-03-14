@@ -64,6 +64,56 @@ The MambaCNN achieved **98.44% accuracy** with only **649 KB** model size. This 
 
 **Training Hardware:** Kaggle T4 GPU
 
+## Android App
+
+A mobile application for real-time rice disease classification using ONNX Runtime.
+
+### Demo Screenshot
+
+<p align="center">
+  <img src="test.jpeg" width="300" alt="App Screenshot">
+</p>
+
+**App Features:**
+- Camera capture and gallery selection
+- Real-time inference using ONNX Runtime
+- Displays disease name, confidence score, and inference time
+- Runs entirely on-device (no internet required)
+
+### Download & Install
+
+**Pre-built APK:** [app.apk](app.apk) (~66 MB debug build)
+
+To install:
+1. Download `app.apk` to your Android phone
+2. Enable "Install from unknown sources" in Settings
+3. Open the APK file to install
+
+### Build from Source
+
+```bash
+cd app_rice_disease_classification/RiceDiseaseClassifier
+
+# Build debug APK
+./gradlew assembleDebug
+
+# APK location: app/build/outputs/apk/debug/app-debug.apk
+```
+
+Or open `app_rice_disease_classification/RiceDiseaseClassifier` in Android Studio and click Run.
+
+### Re-export Model for Android
+
+If you need to re-export the ONNX model with Android-compatible IR version:
+
+```bash
+python export_model_android.py
+```
+
+This exports the model with opset 14 (IR version 7), compatible with ONNX Runtime Android.
+
+---
+
 ## Repository Structure
 
 ```
@@ -71,6 +121,18 @@ Rice_Disease_classification/
 ├── README.md                      # This file
 ├── requirements.txt               # Python dependencies
 ├── predict.py                     # Standalone inference script
+├── export_model_android.py        # ONNX export script for Android
+├── app.apk                        # Pre-built Android app
+├── test.jpeg                      # App demo screenshot
+│
+├── app_rice_disease_classification/  # Android app source code
+│   ├── README.md                  # App documentation
+│   └── RiceDiseaseClassifier/     # Android Studio project
+│       ├── app/src/main/
+│       │   ├── assets/mamba_lite.onnx
+│       │   ├── java/.../MainActivity.kt
+│       │   └── java/.../RiceClassifier.kt
+│       └── build.gradle.kts
 │
 ├── train-mamba.ipynb              # MambaCNN training notebook
 ├── mamba-lite.ipynb               # MambaCNN lite variant training
