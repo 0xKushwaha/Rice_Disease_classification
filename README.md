@@ -74,6 +74,12 @@ A mobile application for real-time rice disease classification using ONNX Runtim
   <img src="test.jpeg" width="300" alt="App Screenshot">
 </p>
 
+**Test Device:** Realme Nord CE 3 Lite 5G
+- Qualcomm Snapdragon 695 5G
+- 8GB LPDDR4X RAM
+- 128GB UFS 2.2 storage
+- Inference Time: ~39ms
+
 **App Features:**
 - Camera capture and gallery selection
 - Real-time inference using ONNX Runtime
