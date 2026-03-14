@@ -1,0 +1,44 @@
+[
+  {
+    "seed": 1,
+    "top1_acc": 96.55172228813171,
+    "top5_acc": 100.0,
+    "best_pt": "/kaggle/working/runs/classify/outputs/runs/seed_1/weights/best.pt",
+    "save_dir": "/kaggle/working/runs/classify/outputs/runs/seed_1"
+  },
+  {
+    "seed": 42,
+    "top1_acc": 96.89655303955078,
+    "top5_acc": 100.0,
+    "best_pt": "/kaggle/working/runs/classify/outputs/runs/seed_42/weights/best.pt",
+    "save_dir": "/kaggle/working/runs/classify/outputs/runs/seed_42"
+  },
+  {
+    "seed": 123,
+    "top1_acc": 97.75862097740173,
+    "top5_acc": 99.8275876045227,
+    "best_pt": "/kaggle/working/runs/classify/outputs/runs/seed_123/weights/best.pt",
+    "save_dir": "/kaggle/working/runs/classify/outputs/runs/seed_123"
+  },
+  {
+    "seed": 456,
+    "top1_acc": 96.72414064407349,
+    "top5_acc": 100.0,
+    "best_pt": "/kaggle/working/runs/classify/outputs/runs/seed_456/weights/best.pt",
+    "save_dir": "/kaggle/working/runs/classify/outputs/runs/seed_456"
+  },
+  {
+    "seed": 789,
+    "top1_acc": 97.93103337287903,
+    "top5_acc": 100.0,
+    "best_pt": "/kaggle/working/runs/classify/outputs/runs/seed_789/weights/best.pt",
+    "save_dir": "/kaggle/working/runs/classify/outputs/runs/seed_789"
+  },
+  {
+    "seed": 1024,
+    "top1_acc": 97.93103337287903,
+    "top5_acc": 100.0,
+    "best_pt": "/kaggle/working/runs/classify/outputs/runs/seed_1024/weights/best.pt",
+    "save_dir": "/kaggle/working/runs/classify/outputs/runs/seed_1024"
+  }
+]

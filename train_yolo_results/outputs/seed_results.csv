@@ -1,0 +1,7 @@
+seed,top1_acc,top5_acc,best_pt,save_dir
+789,97.93103337287903,100.0,/kaggle/working/runs/classify/outputs/runs/seed_789/weights/best.pt,/kaggle/working/runs/classify/outputs/runs/seed_789
+1024,97.93103337287903,100.0,/kaggle/working/runs/classify/outputs/runs/seed_1024/weights/best.pt,/kaggle/working/runs/classify/outputs/runs/seed_1024
+123,97.75862097740173,99.8275876045227,/kaggle/working/runs/classify/outputs/runs/seed_123/weights/best.pt,/kaggle/working/runs/classify/outputs/runs/seed_123
+42,96.89655303955078,100.0,/kaggle/working/runs/classify/outputs/runs/seed_42/weights/best.pt,/kaggle/working/runs/classify/outputs/runs/seed_42
+456,96.72414064407349,100.0,/kaggle/working/runs/classify/outputs/runs/seed_456/weights/best.pt,/kaggle/working/runs/classify/outputs/runs/seed_456
+1,96.55172228813171,100.0,/kaggle/working/runs/classify/outputs/runs/seed_1/weights/best.pt,/kaggle/working/runs/classify/outputs/runs/seed_1
