@@ -82,7 +82,7 @@ A mobile application for real-time rice disease classification using ONNX Runtim
 
 ### Download & Install
 
-**Pre-built APK:** [app.apk](app.apk) (~66 MB debug build)
+**Pre-built APK:** [app.apk](app.apk) (~70 MB debug build)
 
 To install:
 1. Download `app.apk` to your Android phone
