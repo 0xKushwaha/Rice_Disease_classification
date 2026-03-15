@@ -1,0 +1,20 @@
+{
+  "mamba_fp32": {
+    "accuracy": 98.4375,
+    "size_kb": 632.9296875,
+    "parameters": 161574,
+    "inference_ms": 181.88462716667195
+  },
+  "mamba_fp16": {
+    "accuracy": 98.4375,
+    "size_kb": 316.46484375,
+    "parameters": 161574,
+    "inference_ms": 172.31537100000574
+  },
+  "mamba_lite": {
+    "accuracy": 90.36458333333334,
+    "size_kb": 278.203125,
+    "parameters": 70630,
+    "inference_ms": 29.921980000002197
+  }
+}
