@@ -42,6 +42,19 @@ STD = [0.229, 0.224, 0.225]
 # MambaCNN Model Definition
 # ============================================
 
+class DepthwiseSeparable(nn.Module):
+    """Depthwise separable convolution for MambaCNN Lite."""
+    def __init__(self, in_ch: int, out_ch: int):
+        super().__init__()
+        self.dw = nn.Sequential(
+            nn.Conv2d(in_ch, in_ch, kernel_size=3, padding=1, groups=in_ch, bias=False),
+            nn.BatchNorm2d(in_ch), nn.GELU())
+        self.pw = nn.Sequential(
+            nn.Conv2d(in_ch, out_ch, kernel_size=1, bias=False),
+            nn.BatchNorm2d(out_ch), nn.GELU())
+    def forward(self, x): return self.pw(self.dw(x))
+
+
 class MambaBlock(nn.Module):
     """Mamba S6 block with selective scan mechanism."""
 
@@ -136,13 +149,89 @@ class MambaCNN(nn.Module):
         return self.head(x)
 
 
+class MambaBlockLite(nn.Module):
+    """Lite Mamba block with smaller state size."""
+    def __init__(self, d_model: int, d_state: int = 8, d_conv: int = 4, expand: int = 2):
+        super().__init__()
+        self.d_model = d_model
+        self.d_state = d_state
+        self.d_inner = d_model * expand
+        self.dt_rank = max(1, self.d_inner // 16)
+        self.norm = nn.LayerNorm(d_model)
+        self.in_proj = nn.Linear(d_model, 2 * self.d_inner, bias=False)
+        self.conv1d = nn.Conv1d(self.d_inner, self.d_inner, kernel_size=d_conv,
+                                 padding=d_conv - 1, groups=self.d_inner, bias=True)
+        self.x_proj = nn.Linear(self.d_inner, self.dt_rank + 2 * d_state, bias=False)
+        self.dt_proj = nn.Linear(self.dt_rank, self.d_inner, bias=True)
+        A_init = torch.log(torch.arange(1, d_state + 1, dtype=torch.float32).unsqueeze(0).repeat(self.d_inner, 1))
+        self.A_log = nn.Parameter(A_init)
+        self.D = nn.Parameter(torch.ones(self.d_inner))
+        self.out_proj = nn.Linear(self.d_inner, d_model, bias=False)
+
+    def _selective_scan(self, x):
+        B, L, _ = x.shape
+        A = -torch.exp(self.A_log.float())
+        D = self.D.float()
+        xBC = self.x_proj(x)
+        dt_raw, B_p, C = xBC.split([self.dt_rank, self.d_state, self.d_state], dim=-1)
+        dt = F.softplus(self.dt_proj(dt_raw))
+        dA = torch.exp(torch.einsum('bld,ds->blds', dt, A))
+        dB = torch.einsum('bld,bls->blds', dt, B_p)
+        h = torch.zeros(B, self.d_inner, self.d_state, device=x.device, dtype=x.dtype)
+        ys = []
+        for i in range(L):
+            h = dA[:, i] * h + dB[:, i] * x[:, i, :, None]
+            ys.append(torch.einsum('bds,bs->bd', h, C[:, i]))
+        return torch.stack(ys, dim=1) + x * D.to(x.dtype)
+
+    def forward(self, x):
+        residual = x
+        x = self.norm(x)
+        xz = self.in_proj(x)
+        x_h, z = xz.chunk(2, dim=-1)
+        x_h = self.conv1d(x_h.transpose(1, 2))[:, :, :x_h.shape[1]].transpose(1, 2)
+        x_h = F.silu(x_h)
+        y = self._selective_scan(x_h)
+        return self.out_proj(y * F.silu(z)) + residual
+
+
+class MambaCNNLite(nn.Module):
+    """
+    MambaCNN Lite for edge deployment.
+    Uses depthwise separable convolutions and smaller state size.
+    Input: 96x96x3
+    """
+    def __init__(self, num_classes: int = 6, d_model: int = 64, n_mamba: int = 2, d_state: int = 8):
+        super().__init__()
+        self.stem = nn.Sequential(
+            nn.Conv2d(3, 16, kernel_size=3, padding=1, bias=False),
+            nn.BatchNorm2d(16), nn.GELU(), nn.MaxPool2d(2),
+            DepthwiseSeparable(16, 32), nn.MaxPool2d(2),
+            DepthwiseSeparable(32, d_model), nn.MaxPool2d(2),
+            DepthwiseSeparable(d_model, d_model), nn.MaxPool2d(2))
+        self.mamba = nn.Sequential(*[MambaBlockLite(d_model, d_state=d_state) for _ in range(n_mamba)])
+        self.norm = nn.LayerNorm(d_model)
+        self.head = nn.Sequential(nn.Dropout(0.3), nn.Linear(d_model, num_classes))
+
+    def forward(self, x):
+        x = self.stem(x)
+        B, C, H, W = x.shape
+        x = x.flatten(2).transpose(1, 2)
+        x = self.mamba(x)
+        x = self.norm(x)
+        return self.head(x.mean(dim=1))
+
+
 # ============================================
 # Inference Functions
 # ============================================
 
-def load_mamba_model(checkpoint_path: str, device: torch.device) -> MambaCNN:
-    """Load MambaCNN model from checkpoint."""
-    model = MambaCNN(num_classes=len(CLASS_NAMES), d_model=64, n_mamba=2)
+def load_mamba_model(checkpoint_path: str, device: torch.device, lite: bool = False):
+    """Load MambaCNN or MambaCNN Lite model from checkpoint."""
+    if lite:
+        model = MambaCNNLite(num_classes=len(CLASS_NAMES), d_model=64, n_mamba=2, d_state=8)
+    else:
+        model = MambaCNN(num_classes=len(CLASS_NAMES), d_model=64, n_mamba=2)
     state_dict = torch.load(checkpoint_path, map_location=device)
     model.load_state_dict(state_dict)
     model.to(device)
@@ -168,9 +257,9 @@ def preprocess_image_mamba(image_path: str, image_size: int = 128) -> torch.Tens
     return transform(image).unsqueeze(0)
 
 
-def predict_mamba(model: MambaCNN, image_path: str, device: torch.device) -> dict:
-    """Run inference with MambaCNN model."""
-    image_tensor = preprocess_image_mamba(image_path).to(device)
+def predict_mamba(model, image_path: str, device: torch.device, image_size: int = 128) -> dict:
+    """Run inference with MambaCNN or MambaCNN Lite model."""
+    image_tensor = preprocess_image_mamba(image_path, image_size).to(device)
 
     # Warm-up run
     with torch.no_grad():
@@ -232,9 +321,9 @@ def find_model_path(model_type: str) -> str:
     base_dir = Path(__file__).parent
 
     if model_type == "mamba_lite":
-        # MambaCNN Lite - Edge model (<1MB)
+        # MambaCNN Lite - Edge model (<1MB), best seed is 1
         paths = [
-            base_dir / "train_mamba_lite_results" / "outputs" / "runs" / "seed_123" / "best_mamba_cnn_seed123.pth",
+            base_dir / "train_mamba_lite_results" / "outputs" / "runs" / "seed_1" / "best_mamba_cnn_lite_seed1.pth",
             base_dir / "models" / "mamba_lite.pth",
         ]
     elif model_type == "mamba":
@@ -325,8 +414,10 @@ Examples:
 
     # Load model and run inference
     if args.model in ["mamba", "mamba_lite"]:
-        model = load_mamba_model(checkpoint, device)
-        result = predict_mamba(model, args.image, device)
+        is_lite = args.model == "mamba_lite"
+        image_size = 96 if is_lite else 128
+        model = load_mamba_model(checkpoint, device, lite=is_lite)
+        result = predict_mamba(model, args.image, device, image_size=image_size)
     else:  # yolo
         model = load_yolo_model(checkpoint)
         result = predict_yolo(model, args.image)

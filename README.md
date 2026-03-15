@@ -58,7 +58,7 @@ The MambaCNN achieved **98.44% accuracy** with only **649 KB** model size. This 
 | **Model Size (PyTorch)** | 3.1 MB | 649 KB | 333 KB | 299 KB |
 | **Model Size (ONNX)** | 5.9 MB | 1.34 MB | 880 KB | 837 KB |
 | **Parameters** | ~1.5M | 161,574 | 161,574 | 70,630 |
-| **Input Resolution** | 320×320 | 128×128 | 128×128 | 128×128 |
+| **Input Resolution** | 320×320 | 128×128 | 128×128 | 96×96 |
 | **Inference (CPU)** | 31.40 ms | 8.44 ms | 9.82 ms | ~6 ms |
 
 ### FP16 vs MambaCNN Lite Comparison
@@ -150,9 +150,6 @@ If you need to re-export the ONNX model with Android-compatible IR version:
 ```bash
 # Export FP16 model (recommended, used in app)
 python export_fp16_android.py
-
-# Export FP32 MambaCNN Lite model
-python export_model_android.py
 ```
 
 This exports the model with opset 14 (IR version 7), compatible with ONNX Runtime Android.
@@ -168,7 +165,6 @@ Rice_Disease_classification/
 ├── predict.py                     # Standalone inference script
 ├── inference_fp16.py              # FP16 model inference script
 ├── export_fp16_android.py         # FP16 ONNX export for Android
-├── export_model_android.py        # FP32 Lite ONNX export for Android
 ├── test_fp16_mamba.py             # FP16 vs Lite comparison script
 ├── app.apk                        # Pre-built Android app
 ├── test.jpeg                      # App demo screenshot
@@ -187,7 +183,7 @@ Rice_Disease_classification/
 │   └── fp16_comparison_results.json
 │
 ├── train-mamba.ipynb              # MambaCNN training notebook
-├── mamba-lite.ipynb               # MambaCNN lite variant training
+├── train-mamba-lite.ipynb         # MambaCNN lite variant training
 ├── train-yolo.ipynb               # YOLOv11 training notebook
 │
 ├── train_mamba_results/           # MambaCNN training outputs
@@ -270,7 +266,7 @@ python predict.py --image leaf.jpg --model mamba_lite --device cpu
 Rice Disease Classification
 ============================================================
 Model:      MAMBA_LITE
-Checkpoint: train_mamba_lite_results/outputs/runs/seed_123/best_mamba_cnn_seed123.pth
+Checkpoint: train_mamba_lite_results/outputs/runs/seed_1/best_mamba_cnn_lite_seed1.pth
 Device:     cpu
 Image:      test_leaf.jpg
 ============================================================
@@ -349,6 +345,14 @@ Training was performed on Kaggle with T4 GPU. To reproduce:
 - Learning Rate: 2e-3 (cosine annealing)
 - Optimizer: AdamW (weight_decay=0.05)
 - Seeds Tested: [1, 42, 123, 456, 789, 1024]
+
+**Training Configuration (MambaCNN Lite):**
+- Input Size: 96×96
+- Epochs: 80 (with early stopping, patience=20)
+- Batch Size: 128
+- Learning Rate: 2e-3 (cosine annealing)
+- Optimizer: AdamW (weight_decay=0.05)
+- Seeds Tested: [0, 1, 42, 99, 123, 456, 789, 1024]
 
 **Training Configuration (YOLO):**
 - Epochs: 150 (with early stopping, patience=25)
