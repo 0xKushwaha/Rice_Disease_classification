@@ -54,9 +54,9 @@ The MambaCNN achieved **98.44% accuracy** with only **649 KB** model size. This 
 
 | Metric | YOLOv11 (Baseline) | MambaCNN (FP32) | MambaCNN (FP16) | MambaCNN Lite |
 |--------|--------------------|-----------------|-----------------| --------------|
-| **Test Accuracy** | 97.93% | 98.44% | 98.44% | 90.36% |
-| **Model Size (PyTorch)** | 3.1 MB | 633 KB | 333 KB | 278 KB |
-| **Model Size (ONNX)** | 5.9 MB | 880 KB | 880 KB | 550 KB |
+| **Test Accuracy** | 97.93% | 98.44% | 98.44% | 96.61% |
+| **Model Size (PyTorch)** | 3.1 MB | 649 KB | 333 KB | 299 KB |
+| **Model Size (ONNX)** | 5.9 MB | 1.34 MB | 880 KB | 837 KB |
 | **Parameters** | ~1.5M | 161,574 | 161,574 | 70,630 |
 | **Input Resolution** | 320×320 | 128×128 | 128×128 | 128×128 |
 | **Inference (CPU)** | 31.40 ms | 8.44 ms | 9.82 ms | ~6 ms |
@@ -67,15 +67,15 @@ Tested with **same test split** (seed=42, 384 test samples):
 
 | Model | Test Accuracy | Model Size | Parameters | CPU Inference |
 |-------|---------------|------------|------------|---------------|
-| **MambaCNN (FP32)** | 98.44% | 633 KB | 161,574 | 8.44 ms |
+| **MambaCNN (FP32)** | 98.44% | 649 KB | 161,574 | 8.44 ms |
 | **MambaCNN (FP16)** | 98.44% | 333 KB | 161,574 | 9.82 ms |
-| **MambaCNN Lite** | 90.36% | 278 KB | 70,630 | ~6 ms |
+| **MambaCNN Lite** | 96.61% | 299 KB | 70,630 | ~6 ms |
 
 **Key Observations:**
 
-- **MambaCNN FP16 > MambaCNN Lite** in accuracy by **+8.07%**
+- **MambaCNN FP16 > MambaCNN Lite** in accuracy by **+1.83%**
 - FP16 preserves full FP32 accuracy (98.44%) with ~50% size reduction
-- MambaCNN Lite is only 55 KB smaller than FP16 but loses 8% accuracy
+- MambaCNN Lite is 34 KB smaller than FP16 with only ~2% accuracy trade-off
 - FP16 inference time (9.82 ms) is comparable to FP32 (8.44 ms) on CPU
 
 ### Recommendation
@@ -90,7 +90,7 @@ Tested with **same test split** (seed=42, 384 test samples):
 
 - **MambaCNN FP32**: Best accuracy (98.44%), full precision model
 - **MambaCNN FP16**: Same accuracy as FP32, 50% smaller, **used in Android app**
-- **MambaCNN Lite**: Fastest inference (6x), smallest model, but 8% accuracy trade-off
+- **MambaCNN Lite**: Fastest inference, smallest model (299 KB), with only ~2% accuracy trade-off
 
 **Inference Benchmark Hardware:** Apple M2 CPU
 
@@ -315,15 +315,15 @@ MambaCNN Lite is **~4x faster** than YOLO on CPU inference.
 
 ### MambaCNN FP32 - Original
 - **Path:** `train_mamba_results/outputs/runs/seed_123/best_mamba_cnn_seed123.pth`
-- **Size:** 633 KB
+- **Size:** 649 KB (PyTorch) / 1.34 MB (ONNX)
 - **Accuracy:** 98.44%
 - **Parameters:** 161,574
-- **Inference:** 9.89 ms (CPU)
+- **Inference:** 8.44 ms (CPU)
 
 ### MambaCNN Lite - Speed Optimized
-- **Path:** `train_mamba_lite_results/outputs/runs/seed_123/best_mamba_cnn_seed123.pth`
-- **Size:** 278 KB
-- **Accuracy:** 90.36%
+- **Path:** `train_mamba_lite_results/outputs/runs/seed_1/best_mamba_cnn_lite_seed1.pth`
+- **Size:** 299 KB (PyTorch) / 837 KB (ONNX)
+- **Accuracy:** 96.61%
 - **Parameters:** 70,630
 - **Best for:** Real-time applications prioritizing speed over accuracy
 
@@ -361,7 +361,8 @@ Training was performed on Kaggle with T4 GPU. To reproduce:
 
 - **Source:** [Rice Disease Dataset](https://www.kaggle.com/datasets/anshulm257/rice-disease-dataset)
 - **Total Images:** 3,829
-- **Split:** 70% train / 15% validation / 15% test
+- **Split:** 80% train / 10% validation / 10% test (seed=42)
+- **Test Samples:** 384
 - **Classes:** 6 rice disease categories
 
 ## Results Summary
@@ -377,6 +378,20 @@ Training was performed on Kaggle with T4 GPU. To reproduce:
 | 1    | 97.40%        | 0.3392    |
 
 **Mean: 97.92% (±0.33%)**
+
+### MambaCNN Lite (Compact Model)
+| Seed | Test Accuracy | Test Loss |
+|------|---------------|-----------|
+| 1    | **96.61%**    | 0.3770    |
+| 99   | 96.35%        | 0.3806    |
+| 456  | 95.83%        | 0.3729    |
+| 123  | 95.57%        | 0.4317    |
+| 0    | 95.05%        | 0.4030    |
+| 42   | 94.53%        | 0.4061    |
+| 789  | 93.75%        | 0.4035    |
+| 1024 | 92.97%        | 0.4345    |
+
+**Mean: 95.08% (±1.27%)**
 
 ### YOLOv11 (Baseline)
 | Seed | Top-1 Accuracy | Top-5 Accuracy |
@@ -394,11 +409,11 @@ Training was performed on Kaggle with T4 GPU. To reproduce:
 
 1. **MambaCNN outperforms YOLO** on this dataset while being **5x smaller** in model size.
 
-2. **FP16 is the best deployment choice**: Same accuracy as FP32 (98.44%) with ~50% size reduction (333 KB vs 633 KB).
+2. **FP16 is the best deployment choice**: Same accuracy as FP32 (98.44%) with ~50% size reduction (333 KB vs 649 KB).
 
-3. **MambaCNN FP16 > MambaCNN Lite**: FP16 achieves **8.07% higher accuracy** (98.44% vs 90.36%) with only 55 KB larger size.
+3. **MambaCNN FP16 > MambaCNN Lite**: FP16 achieves **1.83% higher accuracy** (98.44% vs 96.61%) with only 34 KB larger size.
 
-4. **Speed vs Accuracy Trade-off**: MambaCNN Lite is 6x faster on GPU but sacrifices significant accuracy. Choose based on use case:
+4. **Speed vs Accuracy Trade-off**: MambaCNN Lite is faster with minimal accuracy loss (~2%). Choose based on use case:
    - Accuracy-critical: Use MambaCNN FP16
    - Real-time/speed-critical: Use MambaCNN Lite
 
