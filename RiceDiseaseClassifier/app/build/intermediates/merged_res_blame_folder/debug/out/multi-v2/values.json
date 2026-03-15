@@ -38,6 +38,25 @@
                     }
                 },
                 {
+                    "source": "/Users/ayushkushwaha/Desktop/kyf/Rice_Disease_classification/RiceDiseaseClassifier/app/src/main/res/values/themes.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "7",
+                        "endColumns": "12",
+                        "endOffsets": "399"
+                    },
+                    "to": {
+                        "startLines": "6539",
+                        "startColumns": "4",
+                        "startOffsets": "458737",
+                        "endLines": "6544",
+                        "endColumns": "12",
+                        "endOffsets": "459081"
+                    }
+                },
+                {
                     "source": "/Users/ayushkushwaha/.gradle/caches/transforms-3/64023370af85f1c787a2f31c0657565a/transformed/fragment-1.3.6/res/values/values.xml",
                     "from": {
                         "startLines": "2,3,4,5,10",
@@ -95,23 +114,6 @@
                     }
                 },
                 {
-                    "source": "/Users/ayushkushwaha/Desktop/kyf/Rice_Disease_classification/android_app/RiceDiseaseClassifier/app/src/main/res/values/colors.xml",
-                    "from": {
-                        "startLines": "5,7,12,8,11,2,3,4,9,10,6",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "192,273,496,313,454,55,97,144,358,405,233",
-                        "endColumns": "40,39,41,44,41,41,46,47,46,48,39",
-                        "endOffsets": "228,308,533,353,491,92,139,187,400,449,268"
-                    },
-                    "to": {
-                        "startLines": "644,653,707,712,713,955,956,959,976,977,980",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "32623,33298,37062,37370,37415,55695,55737,55937,57117,57164,57334",
-                        "endColumns": "40,39,41,44,41,41,46,47,46,48,39",
-                        "endOffsets": "32659,33333,37099,37410,37452,55732,55779,55980,57159,57208,57369"
-                    }
-                },
-                {
                     "source": "/Users/ayushkushwaha/.gradle/caches/transforms-3/13710fd7feea9e69e2abbd3b3b866492/transformed/cardview-1.0.0/res/values/values.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,35,36,37,38,45,47,50,7",
@@ -131,22 +133,20 @@
                     }
                 },
                 {
-                    "source": "/Users/ayushkushwaha/Desktop/kyf/Rice_Disease_classification/android_app/RiceDiseaseClassifier/app/src/main/res/values/themes.xml",
+                    "source": "/Users/ayushkushwaha/Desktop/kyf/Rice_Disease_classification/RiceDiseaseClassifier/app/src/main/res/values/colors.xml",
                     "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endLines": "7",
-                        "endColumns": "12",
-                        "endOffsets": "399"
+                        "startLines": "5,7,12,8,11,2,3,4,9,10,6",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "192,273,496,313,454,55,97,144,358,405,233",
+                        "endColumns": "40,39,41,44,41,41,46,47,46,48,39",
+                        "endOffsets": "228,308,533,353,491,92,139,187,400,449,268"
                     },
                     "to": {
-                        "startLines": "6539",
-                        "startColumns": "4",
-                        "startOffsets": "458737",
-                        "endLines": "6544",
-                        "endColumns": "12",
-                        "endOffsets": "459081"
+                        "startLines": "644,653,707,712,713,955,956,959,976,977,980",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "32623,33298,37062,37370,37415,55695,55737,55937,57117,57164,57334",
+                        "endColumns": "40,39,41,44,41,41,46,47,46,48,39",
+                        "endOffsets": "32659,33333,37099,37410,37452,55732,55779,55980,57159,57208,57369"
                     }
                 },
                 {
@@ -205,6 +205,23 @@
                     }
                 },
                 {
+                    "source": "/Users/ayushkushwaha/Desktop/kyf/Rice_Disease_classification/RiceDiseaseClassifier/app/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "2,7,6,5,4,3",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "55,349,300,217,166,116",
+                        "endColumns": "60,66,48,82,50,49",
+                        "endOffsets": "111,411,344,295,212,161"
+                    },
+                    "to": {
+                        "startLines": "1989,2017,2019,2131,2138,2142",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "131238,134361,134487,150851,151495,151965",
+                        "endColumns": "60,66,48,82,50,49",
+                        "endOffsets": "131294,134423,134531,150929,151541,152010"
+                    }
+                },
+                {
                     "source": "/Users/ayushkushwaha/.gradle/caches/transforms-3/8704d1a3f3acc1733bd564647fc89ab6/transformed/appcompat-resources-1.6.1/res/values/values.xml",
                     "from": {
                         "startLines": "2,18,24,34,50",
@@ -255,23 +272,6 @@
                         "startOffsets": "124339",
                         "endColumns": "49",
                         "endOffsets": "124384"
-                    }
-                },
-                {
-                    "source": "/Users/ayushkushwaha/Desktop/kyf/Rice_Disease_classification/android_app/RiceDiseaseClassifier/app/src/main/res/values/strings.xml",
-                    "from": {
-                        "startLines": "2,7,6,5,4,3",
-                        "startColumns": "4,4,4,4,4,4",
-                        "startOffsets": "55,349,300,217,166,116",
-                        "endColumns": "60,66,48,82,50,49",
-                        "endOffsets": "111,411,344,295,212,161"
-                    },
-                    "to": {
-                        "startLines": "1989,2017,2019,2131,2138,2142",
-                        "startColumns": "4,4,4,4,4,4",
-                        "startOffsets": "131238,134361,134487,150851,151495,151965",
-                        "endColumns": "60,66,48,82,50,49",
-                        "endOffsets": "131294,134423,134531,150929,151541,152010"
                     }
                 },
                 {

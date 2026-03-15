@@ -1,4 +1,4 @@
-#Sat Mar 14 20:19:42 IST 2026
-base.0=/Users/ayushkushwaha/Desktop/kyf/Rice_Disease_classification/android_app/RiceDiseaseClassifier/app/build/intermediates/dex/debugAndroidTest/mergeProjectDexDebugAndroidTest/0/classes.dex
+#Sun Mar 15 12:25:08 IST 2026
+base.0=/Users/ayushkushwaha/Desktop/kyf/Rice_Disease_classification/RiceDiseaseClassifier/app/build/intermediates/dex/debugAndroidTest/mergeProjectDexDebugAndroidTest/0/classes.dex
 path.0=0/classes.dex
 renamed.0=classes.dex
