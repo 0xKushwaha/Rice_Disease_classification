@@ -10,14 +10,15 @@ import kotlin.math.exp
 
 /**
  * Rice Disease Classifier using ONNX Runtime
- * Model: MambaLite CNN
+ * Model: MambaCNN FP16 (98.44% accuracy)
  * Input: 128x128 RGB image with ImageNet normalization
  * Output: 6 disease classes
+ * Supported formats: JPG, PNG, BMP, WebP
  */
 class RiceClassifier(context: Context) {
 
     companion object {
-        private const val MODEL_FILE = "mamba_lite.onnx"
+        private const val MODEL_FILE = "mamba_fp16.onnx"
         private const val INPUT_SIZE = 128
         private const val NUM_CLASSES = 6
 

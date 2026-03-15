@@ -88,8 +88,8 @@ Tested with **same test split** (seed=42, 384 test samples):
 
 ### Key Insights
 
-- **MambaCNN FP32**: Best accuracy (98.44%), used in Android app via ONNX Runtime
-- **MambaCNN FP16**: Same accuracy as FP32, 50% smaller, ideal for deployment
+- **MambaCNN FP32**: Best accuracy (98.44%), full precision model
+- **MambaCNN FP16**: Same accuracy as FP32, 50% smaller, **used in Android app**
 - **MambaCNN Lite**: Fastest inference (6x), smallest model, but 8% accuracy trade-off
 
 **Inference Benchmark Hardware:** Apple M2 CPU
@@ -116,7 +116,8 @@ A mobile application for real-time rice disease classification using ONNX Runtim
 
 **App Features:**
 - Camera capture and gallery selection
-- Real-time inference using ONNX Runtime
+- **Supported image formats:** JPG, PNG, BMP, WebP (any resolution)
+- Real-time inference using ONNX Runtime with MambaCNN FP16 (98.44% accuracy)
 - Displays disease name, confidence score, and inference time
 - Runs entirely on-device (no internet required)
 
@@ -147,6 +148,10 @@ Or open `RiceDiseaseClassifier` in Android Studio and click Run.
 If you need to re-export the ONNX model with Android-compatible IR version:
 
 ```bash
+# Export FP16 model (recommended, used in app)
+python export_fp16_android.py
+
+# Export FP32 MambaCNN Lite model
 python export_model_android.py
 ```
 
@@ -162,7 +167,8 @@ Rice_Disease_classification/
 ├── requirements.txt               # Python dependencies
 ├── predict.py                     # Standalone inference script
 ├── inference_fp16.py              # FP16 model inference script
-├── export_model_android.py        # ONNX export script for Android
+├── export_fp16_android.py         # FP16 ONNX export for Android
+├── export_model_android.py        # FP32 Lite ONNX export for Android
 ├── test_fp16_mamba.py             # FP16 vs Lite comparison script
 ├── app.apk                        # Pre-built Android app
 ├── test.jpeg                      # App demo screenshot
@@ -170,7 +176,7 @@ Rice_Disease_classification/
 ├── RiceDiseaseClassifier/         # Android app source code
 │   ├── README.md                  # App documentation
 │   ├── app/src/main/
-│   │   ├── assets/mamba_lite.onnx
+│   │   ├── assets/mamba_fp16.onnx # FP16 model (880 KB)
 │   │   ├── java/.../MainActivity.kt
 │   │   └── java/.../RiceClassifier.kt
 │   └── build.gradle.kts
