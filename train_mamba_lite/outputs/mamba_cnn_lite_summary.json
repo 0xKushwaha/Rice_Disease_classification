@@ -1,0 +1,20 @@
+{
+  "model": "mamba_cnn_lite",
+  "seeds_tested": [
+    0,
+    1,
+    42,
+    99,
+    123,
+    456,
+    789,
+    1024
+  ],
+  "best_seed": 1,
+  "best_test_acc": 96.61458333333334,
+  "mean_test_acc": 95.08463541666667,
+  "std_test_acc": 1.271497161468332,
+  "model_size_kb": 275.8984375,
+  "best_ckpt": "outputs/runs/seed_1/best_mamba_cnn_lite_seed1.pth",
+  "onnx_path": "outputs/runs/seed_1/best_mamba_cnn_lite_seed1.onnx"
+}
